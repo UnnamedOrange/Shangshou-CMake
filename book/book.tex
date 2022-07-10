@@ -1,0 +1,29 @@
+\documentclass[lang=cn, device=normal, color=blue, titlestyle=hang, scheme=english, mode=fancy, citestyle=gb7714-2015, bibstyle=gb7714-2015, toc=onecol, 11pt]{elegantbook}
+\setcounter{tocdepth}{1}
+\ExecuteBibliographyOptions{sorting=gb7714-2015}
+
+\title{标题}
+\subtitle{副标题}
+\date{\today}
+\author{UnnamedOrange}
+\version{开发版}
+
+\extrainfo{一言}
+\cover{cover}
+
+\begin{document}
+
+	\maketitle
+
+	\chapter*{前言}
+	\markboth{前言}{前言}
+
+	\input{00_犄角旮旯/前言}
+
+	\tableofcontents
+
+	\mainmatter
+
+	\input{01_样例章节/collection}
+
+\end{document}
