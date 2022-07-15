@@ -1,0 +1,34 @@
+\usepackage{listings}
+\usepackage{accsupp}
+
+\newcommand{\emptyaccsupp}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
+
+\definecolor{typecolor}{HTML}{2B91AF}
+\definecolor{funccolor}{HTML}{74531F}
+\definecolor{macrocolor}{HTML}{8A1BFF}
+\lstset{
+	tabsize = 4,
+	columns = fixed,
+	numbers = left,
+	breaklines = true,
+	keywordstyle = \color[RGB]{40,40,255},
+	numberstyle = \scriptsize\color{darkgray}\emptyaccsupp,
+	basicstyle = \normalsize\ttfamily,
+	commentstyle = \normalsize\color[RGB]{0,128,0},
+	stringstyle = \normalsize\slshape\color[RGB]{128,0,0},
+	showstringspaces = false,
+}
+\lstdefinelanguage[17]{C++}[11]{C++}{
+	morekeywords={%
+		},
+	emphstyle=\color{typecolor},
+	moreemph={%
+		},
+	emphstyle={[2]\color{funccolor}},
+	moreemph={[2]%
+			main,%
+		},
+	emphstyle={[3]\color{macrocolor}},
+	moreemph={[3]%
+		},
+}
