@@ -6,7 +6,7 @@
 在开始学习 CMake 之前，我假设读者掌握了最基础的 C++ 知识，具有编写单个 C++ 源文件的能力。为确保假设成立，我将首先演示程序设计课程中一套（可能）常见的操作流程：使用 Dev-C++ 集成开发环境编写一个简单的 C++ 程序并运行。读者不必亲自照此操作，但如果你对该流程并不熟悉，请考虑复习你的程序设计课程。
 
 \begin{enumerate}
-	\item 下载并安装 Dev-C++。目前，Dev-C++ 的代码仓库已迁移至 GitHub\footnote{网址：\url{https://github.com/Embarcadero/Dev-Cpp}。}，最新的版本为 6.3，从发布页面\footnote{网址：\url{https://github.com/Embarcadero/Dev-Cpp/releases/tag/v6.3}。}可以得到安装包的下载地址：\url{https://github.com/Embarcadero/Dev-Cpp/releases/download/v6.3/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_Setup.exe}。下载该安装包，并以默认配置安装。
+	\item 下载并安装 Dev-C++。目前，Dev-C++ 的代码仓库已迁移至 GitHub\footnote{网址：\url{https://github.com/Embarcadero/Dev-Cpp}。}，最新的版本为 6.3，可以从发布页面\footnote{网址：\url{https://github.com/Embarcadero/Dev-Cpp/releases/tag/v6.3}。}得到安装包的下载地址：\url{https://github.com/Embarcadero/Dev-Cpp/releases/download/v6.3/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_Setup.exe}。下载该安装包，并以默认配置安装。
 
 	\item 新建源文件并编写代码。安装完成后，打开 Dev-C++，可以看到图 \ref{fig:dev-cpp-1} 所示的界面。点击“新文件”，编写图 \ref{fig:dev-cpp-2} 所示的代码，然后保存。
 
@@ -62,3 +62,15 @@
 - 输出大小: 2.98873424530029 MiB
 - 编译时间: 1.44s
 \end{lstlisting}
+
+从以上编译日志可以看到，Dev-C++ IDE 的职责是帮助我们调用编译器，并且以命令行的形式向编译器传入大量参数。上例包含的参数有：
+
+\begin{itemize}
+	\item 参与编译的源文件的路径。
+	\item \lstinline[language={}]{-o}：输出文件的路径。
+	\item \lstinline[language={}]{-I}：额外的包含目录。
+	\item \lstinline[language={}]{-L}：额外的链接目录。
+	\item \lstinline[language={}]{-static-libgcc}：指定链接 libgcc 库的方式为静态链接。
+\end{itemize}
+
+几乎所有实际的工程都存在不止一个源文件。可以预见，编译这些工程所需的参数会比上例复杂许多。在本章的剩余部分，我们将上手感受它们的复杂性。
