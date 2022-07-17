@@ -31,4 +31,68 @@
 		\caption{新建项目对话框。}
 		\label{fig:multi-source-1}
 	\end{figure}
+
+	\item 新建源文件。在“项目管理”窗口中，右键点击项目，点击弹出菜单中的 “New File”。立即保存新建的文件到默认路径，并为它取一个好名称。重复该步骤，得到如图 \ref{fig:multi-source-2} 所示的结果。
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.2\linewidth]{assets/multi-source-2}
+		\caption{新建源文件后的“项目管理”窗口。}
+		\label{fig:multi-source-2}
+	\end{figure}
+
+	\item 编写代码。
+
+	\begin{lstlisting}[language={[17]C++}]
+// main.cpp
+#include <iostream>
+
+#include "another.h"
+
+int main()
+{
+	long long ago { another("figure emerged") };
+	std::cout << ago << std::endl;
+}
+	\end{lstlisting}
+
+	\begin{lstlisting}[language={[17]C++}, moreemph={[2]another}]
+// another.h
+long long another(const char*);
+	\end{lstlisting}
+
+	\begin{lstlisting}[language={[17]C++}, moreemph={[2]another, strlen}]
+// another.cpp
+#include <cstring>
+
+long long another(const char* str)
+{
+	return std::strlen(str);
+}
+	\end{lstlisting}
+
+	\item 编译并运行代码。点击菜单栏中的“运行”、“编译运行”，可以看到“编译日志”窗口弹出，调用的命令记录如下。
+
+	\begin{lstlisting}[language={}]
+生成 makefile...
+--------
+- 文件名: C:\Users\lyche\Desktop\GoodName\Makefile.win
+
+正在处理makefile...
+--------
+- makefile处理器: C:\Program Files (x86)\Embarcadero\Dev-Cpp\TDM-GCC-64\bin\mingw32-make.exe
+- 命令: mingw32-make.exe -j16 -f "C:\Users\lyche\Desktop\GoodName\Makefile.win" all
+
+g++.exe -c another.cpp -o another.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include"
+
+g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include"
+
+g++.exe another.o main.o -o GoodName.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+	\end{lstlisting}
+\end{enumerate}
+
+\subsection*{讨论}
+
+\begin{enumerate}
+	\item
 \end{enumerate}
