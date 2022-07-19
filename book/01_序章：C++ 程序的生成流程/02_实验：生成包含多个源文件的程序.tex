@@ -43,7 +43,7 @@
 
 	\item 编写代码。
 
-	\begin{lstlisting}[language={[17]C++}]
+	\begin{lstlisting}[language={[17]C++}, moreemph={[2]another}]
 // main.cpp
 #include <iostream>
 
@@ -97,4 +97,52 @@ g++.exe another.o main.o -o GoodName.exe -L"C:/Program Files (x86)/Embarcadero/D
 	\item 各源文件的编译是独立进行的。编译日志的第 10 行只编译了 \lstinline[language={}]{another.cpp}，而第 12 行只编译了 \lstinline[language={}]{main.cpp}。
 
 	\item 编译各源文件时不涉及其他中间文件或其他库文件。编译日志的第 10 行和第 12 行均不包含 \lstinline[language={}]{-L} 参数，只有在链接时（第 14 行）才会通过 \lstinline[language={}]{-L} 参数给出需要额外链接的库所在的目录。
+
+	\item \lstinline[language={}]{another.h} 的作用。
+
+	我们只在 \lstinline[language={}]{main.cpp} 中通过 \lstinline[language={[17]C++}]{#include} 指令引用了 \lstinline[language={}]{another.h}。将这句 \lstinline[language={[17]C++}]{#include} 指令展开（即进行文本替换），可以得到如下等效的 \lstinline[language={}]{main.cpp} 文件。
+
+	\begin{lstlisting}[language={[17]C++}, moreemph={[2]another}]
+// main.cpp
+#include <iostream>
+
+long long another(const char*);
+
+int main()
+{
+	long long ago { another("figure emerged") };
+	std::cout << ago << std::endl;
+}
+	\end{lstlisting}
+
+	第 4 行的 \lstinline[language={[17]C++}, moreemph={[2]another}]{long long another(const char*);} 称为函数的\emph{声明（declaration）}，它提供了函数的\emph{原型（prototype）}，即返回值类型、函数名、参数列表。因为各源文件的编译是独立进行的，所以可以预见，如果不\emph{声明（declare）}该函数，编译器在调用该函数相关的代码时就会因为不知道函数的返回值类型和参数列表而报错。这就是常说的“先声明，后使用”的原则。
+
+	综上，\lstinline[language={}]{another.h} 的作用是为其他源文件提供 \lstinline[language={}]{another.cpp} 中的函数的声明。
+
+	\item 分离声明与\emph{实现（implementation）}的原因。
+
+	链接时，链接器检查到 \lstinline[language={}]{main.cpp} 调用了 \lstinline[language={[17]C++}, moreemph={[2]another}]{another} 函数，而我们是在 \lstinline[language={}]{another.cpp} 中具体\emph{实现（implement）} \lstinline[language={[17]C++}, moreemph={[2]another}]{another} 函数的，于是链接器将编译 \lstinline[language={}]{another.cpp} 得到的部分中间结果并入可执行文件中。
+
+	为什么不只在 \lstinline[language={}]{another.h} 中实现 \lstinline[language={[17]C++}, moreemph={[2]another}]{another} 函数，而要把声明和实现分离在两个文件中？在本例中，这似乎是可行的，进行文本替换后唯一的源文件 \lstinline[language={}]{main.cpp} 将变为：
+
+	\begin{lstlisting}[language={[17]C++}, moreemph={[2]another, strlen}]
+// main.cpp
+#include <iostream>
+#include <cstring>
+
+long long another(const char* str)
+{
+	return std::strlen(str);
+}
+
+int main()
+{
+	long long ago { another("figure emerged") };
+	std::cout << ago << std::endl;
+}
+	\end{lstlisting}
+
+	问题实际上就在于文本替换。如果存在另一个源文件 \lstinline[language={}]{yet_another.cpp}，它也通过 \lstinline[language={[17]C++}]{#include} 指令包含了 \lstinline[language={}]{another.h}，则文本替换后，\lstinline[language={[17]C++}, moreemph={[2]another}]{another} 函数将存在两个实现：这是链接器不允许的。
+
+	综上，声明与实现分离的原因是避免展开 \lstinline[language={[17]C++}]{#include} 指令后在多个源文件中出现重复的函数实现\footnote{可以使用 \lstinline[language={[17]C++}]{inline} 关键字告诉编译器这个函数可以因为多次 \lstinline[language={[17]C++}]{#include} 重复定义。尽管如此，一般仍然会分离函数的声明和实现，以避免展开 \lstinline[language={[17]C++}]{#include} 指令产生大量实现代码，从而提升编译速度。相关知识属于 C++ 语法范畴，此处不予详细讨论。}。
 \end{enumerate}
