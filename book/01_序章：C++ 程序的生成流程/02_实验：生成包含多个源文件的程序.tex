@@ -1,9 +1,9 @@
 % Licensed under the Creative Commons Attribution Share Alike 4.0 International.
 % See the LICENSE file in the repository root for full license text.
 
-\section{实验：构建包含多个源文件的程序}
+\section{实验：生成包含多个源文件的程序}
 
-包含多个源文件的 C++ 程序\emph{构建（build）}流程可以用图 \ref{fig:build-flow} 示意。该图将构建流程概括为以下三个步骤。
+包含多个源文件的 C++ 程序\emph{生成（build）}流程可以用图 \ref{fig:build-flow} 示意。该图将生成流程概括为以下三个步骤。
 
 \begin{enumerate}
 	\item \emph{预处理（preprocess）}。\emph{预处理器（preprocessor）}处理源文件中的 \lstinline[language={[17]C++}]{#include}、\lstinline[language={[17]C++}]{#define} 等预处理指令，对 \lstinline[language={[17]C++}]{#include} 指令、宏指令进行\textbf{文本替换}。
@@ -14,11 +14,11 @@
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.15]{assets/build-flow}
-	\caption{多个 C++ 源文件的构建流程示意图。}
+	\caption{多个 C++ 源文件的生成流程示意图。}
 	\label{fig:build-flow}
 \end{figure}
 
-一般认为，C++ 程序的构建流程\footnote{没有讨论单个源文件经过编译得到单个中间文件时，习惯上用“编译”替代“构建”。}包括预处理、编译、汇编、链接四个步骤，此处我们将汇编这一步骤并入编译，以突出之后的实验要讨论的问题。
+一般认为，C++ 程序的生成流程\footnote{没有讨论单个源文件经过编译得到单个中间文件时，习惯上用“编译”替代“生成”。所以前文中的 \lstinline[language={}]{g++} 编译器实际上具有完整的生成功能，不止可以编译，还可以预处理、链接；前文中的“编译日志”也表示“生成日志”。}包括预处理、编译、汇编、链接四个步骤，此处我们将汇编这一步骤并入编译，以突出之后的实验要讨论的问题。
 
 \subsection*{实验步骤}
 
@@ -94,5 +94,7 @@ g++.exe another.o main.o -o GoodName.exe -L"C:/Program Files (x86)/Embarcadero/D
 \subsection*{讨论}
 
 \begin{enumerate}
-	\item
+	\item 各源文件的编译是独立进行的。编译日志的第 10 行只编译了 \lstinline[language={}]{another.cpp}，而第 12 行只编译了 \lstinline[language={}]{main.cpp}。
+
+	\item 编译各源文件时不涉及其他中间文件或其他库文件。编译日志的第 10 行和第 12 行均不包含 \lstinline[language={}]{-L} 参数，只有在链接时（第 14 行）才会通过 \lstinline[language={}]{-L} 参数给出需要额外链接的库所在的目录。
 \end{enumerate}
