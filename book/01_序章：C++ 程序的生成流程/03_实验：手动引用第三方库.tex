@@ -10,5 +10,76 @@
 \begin{enumerate}
 	\item 新建项目和源文件。操作步骤与 \ref{sec:experiment-1} 相同，项目中只包含 \lstinline[language={}]{main.cpp} 一个文件。
 
-	\item
+	\item 以源代码的形式引用 JsonCpp 库。
+
+	JsonCpp\footnote{网址：\url{https://github.com/open-source-parsers/jsoncpp}。} 是一个用于解析 JSON 格式文本并操纵 JSON 对象的 C++ 库，而 JSON 是一种常用的数据交换格式，下面是 JSON 格式文本一例。
+
+	\begin{lstlisting}[language={JSON}]
+{
+	"name": "John Doe",
+	"age": 42,
+	"phones": [
+		{ "type": "home", "number": "555-1234" },
+		{ "type": "office", "number": "555-2345" },
+		{ "type": "mobile", "number": "555-3456" }
+	]
+}
+	\end{lstlisting}
+
+	\begin{enumerate}
+		\item 下载源代码。前往 JsonCpp 最新版本的发布页面\footnote{网址：\url{https://github.com/open-source-parsers/jsoncpp/releases/tag/1.9.5}。}下载源码：\url{https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.zip}。解压后，将其中的 \lstinline[language={}]{src} 文件夹和 \lstinline[language={}]{include} 文件夹移动到项目根目录下新建的 \lstinline[language={}]{JsonCpp} 文件夹中。
+
+		\item 将源文件添加到项目中。在 Dev-C++ 中打开新建的项目，在“项目管理”窗口中右键点击项目，点击弹出菜单中的“添加文件夹”，命名为“JsonCpp”。在“项目管理”窗口中右键点击刚才新建的“JsonCpp”文件夹，点击弹出菜单中的“添加”，进入项目目录下的 \lstinline[language={}]{JsonCpp/src/lib_json}，选择其中所有以 \lstinline[language={}]{.cpp} 为扩展名的文件，点击“打开”。完成后的“项目管理”窗口如图 \ref{fig:manual-library-1} 所示。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.2\linewidth]{assets/manual-library-1}
+			\caption{添加源文件后的“项目管理”窗口。}
+			\label{fig:manual-library-1}
+		\end{figure}
+
+		\item 将包含目录添加到项目中。在“项目管理”窗口中右键点击项目，点击弹出菜单中的“项目属性”。在弹出的对话框中，点击“文件/目录”选项卡，再点击“包含文件目录”子选项卡。点击右下角的选择文件夹按钮（图 \ref{fig:manual-library-2} 中的蓝色按钮），选择项目目录下的 \lstinline[language={}]{JsonCpp/include} 文件夹，按钮旁的编辑框将显示完整路径。删除其中的绝对路径，只保留 \lstinline[language={}]{JsonCpp/include}，然后点击“添加”。完成后的“项目属性”对话框如图 \ref{fig:manual-library-3} 所示\footnote{也可以直接在编辑框中输入 \lstinline[language={}]{JsonCpp/include}，不点击选择文件夹按钮。}。最后点击“确定”退出该对话框。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-2}
+			\caption{项目属性对话框。}
+			\label{fig:manual-library-2}
+		\end{figure}
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-3}
+			\caption{完成后的项目属性对话框。}
+			\label{fig:manual-library-3}
+		\end{figure}
+
+		\item 编写代码。
+
+		\begin{lstlisting}[language={[17]C++}, moreemph={[1]Value}]
+// main.cpp
+#include <json/json.h>
+
+int main()
+{
+	Json::Value v = 1;
+}
+	\end{lstlisting}
+
+		\item 编译并运行代码。“编译日志”窗口记录的命令如下。
+
+		\begin{lstlisting}[language={}]
+g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+
+g++.exe -c JsonCpp/src/lib_json/json_reader.cpp -o JsonCpp/src/lib_json/json_reader.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+
+g++.exe -c JsonCpp/src/lib_json/json_value.cpp -o JsonCpp/src/lib_json/json_value.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+
+g++.exe -c JsonCpp/src/lib_json/json_writer.cpp -o JsonCpp/src/lib_json/json_writer.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+
+g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+		\end{lstlisting}
+	\end{enumerate}
+
+	\item 以二进制的形式引用 SFML 库。
 \end{enumerate}
