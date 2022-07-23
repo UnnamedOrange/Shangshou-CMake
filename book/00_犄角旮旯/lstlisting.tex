@@ -19,6 +19,7 @@
 	showstringspaces = false,
 }
 \lstdefinelanguage[17]{C++}[11]{C++}{
+	morestring=[s]{<}{>},
 	morekeywords={%
 		},
 	emphstyle=\color{typecolor},
@@ -32,4 +33,6 @@
 	moreemph={[3]%
 		},
 }
-\lstdefinelanguage{JSON}{}
+\lstdefinelanguage{JSON}{
+	string=[b]",
+}

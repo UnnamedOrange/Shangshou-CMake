@@ -82,4 +82,44 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 	\end{enumerate}
 
 	\item 以二进制的形式引用 SFML 库。
+
+	SFML\footnote{网址：\url{https://www.sfml-dev.org/}。} 全称 Simple and Fast Multimedia Library，是一个用于编写游戏和多媒体应用程序的多媒体库。一般而言，多媒体库较为复杂，从源码构建需要较长的时间，所以下面我们将以二进制的形式引用 SFML 库。
+
+	\begin{enumerate}
+		\item 下载源代码和二进制文件。前往 SFML 的代码仓库\footnote{网址：\url{https://github.com/SFML/SFML}。}，在最新版本的发布页面\footnote{网址：\url{https://github.com/SFML/SFML/releases/tag/2.5.1}。}下载发布的文件：\url{https://github.com/SFML/SFML/releases/download/2.5.1/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip}。注意，此处要选择与你使用的编译器相匹配的版本。将整个 \lstinline[language={}]{SFML-2.5.1} 文件解压到项目根目录下。
+
+		\item 将包含目录添加到项目中。
+
+		\item 将附加链接库添加到项目中。
+
+		\item 编写代码。
+
+		\begin{lstlisting}[language={[17]C++}, moreemph={[1]Value, Window, VideoMode, Event}, moreemph={[2]isOpen, pollEvent, close, display}]
+// main.cpp
+#include <json/json.h>
+#include <SFML/Window.hpp>
+
+int main()
+{
+    Json::Value v = 1;
+    sf::Window window(sf::VideoMode(640, 480), "Hello, world!");
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        window.display();
+    }
+}
+		\end{lstlisting}
+
+		\item 编译代码。“编译日志”窗口记录的命令如下。
+
+		\item 将动态链接库拷贝到可执行文件所在目录。
+
+		\item 运行程序。
+	\end{enumerate}
 \end{enumerate}
