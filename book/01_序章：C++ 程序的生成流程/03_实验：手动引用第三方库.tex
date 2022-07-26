@@ -43,14 +43,14 @@
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-2}
-			\caption{项目属性对话框。}
+			\caption{“项目属性”对话框。}
 			\label{fig:manual-library-2}
 		\end{figure}
 
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-3}
-			\caption{完成后的项目属性对话框。}
+			\caption{完成后的“项目属性”对话框。}
 			\label{fig:manual-library-3}
 		\end{figure}
 
@@ -88,9 +88,23 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 	\begin{enumerate}
 		\item 下载源代码和二进制文件。前往 SFML 的代码仓库\footnote{网址：\url{https://github.com/SFML/SFML}。}，在最新版本的发布页面\footnote{网址：\url{https://github.com/SFML/SFML/releases/tag/2.5.1}。}下载发布的文件：\url{https://github.com/SFML/SFML/releases/download/2.5.1/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip}。注意，此处要选择与你使用的编译器相匹配的版本。将整个 \lstinline[language={}]{SFML-2.5.1} 文件解压到项目根目录下。
 
-		\item 将包含目录添加到项目中。
+		\item 将包含目录添加到项目中。操作步骤与此前相同，添加的包含目录为 \lstinline[language={}]{SFML-2.5.1/include}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-4} 所示。
 
-		\item 将附加链接库添加到项目中。
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-4}
+			\caption{添加包含目录后的“项目属性”对话框。}
+			\label{fig:manual-library-4}
+		\end{figure}
+
+		\item 将附加链接库添加到项目中。在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中所有扩展名为 \lstinline[language={}]{.a} 的文件。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-5}
+			\caption{添加附加链接库后的“项目属性”对话框。}
+			\label{fig:manual-library-5}
+		\end{figure}
 
 		\item 编写代码。
 
@@ -116,10 +130,30 @@ int main()
 }
 		\end{lstlisting}
 
-		\item 编译代码。“编译日志”窗口记录的命令如下。
+		\item 编译代码。“编译日志”窗口记录的命令如下（第 3 行的命令是节选）。
 
-		\item 将动态链接库拷贝到可执行文件所在目录。
+		\begin{lstlisting}[language={}]
+g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include" -I"SFML-2.5.1/include"
 
-		\item 运行程序。
+g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libFLAC.a SFML-2.5.1/lib/libfreetype.a ...
+		\end{lstlisting}
+
+		\item 将动态链接库拷贝到可执行文件所在目录。将 \lstinline[language={}]{SFML/bin} 中所有的 \lstinline[language={}]{.dll} 文件拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-6}
+			\caption{需要保证所有 \lstinline[language={}]{.dll} 文件与 \lstinline[language={}]{.exe} 文件位于同一目录。}
+			\label{fig:manual-library-6}
+		\end{figure}
+
+		\item 运行程序。在 Dev-C++ 中点击菜单栏中的“运行”、“运行”，可以看到一个控制台窗口和一个黑色窗口弹出，如图 \ref{fig:manual-library-7} 所示。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-7}
+			\caption{程序运行结果。}
+			\label{fig:manual-library-7}
+		\end{figure}
 	\end{enumerate}
 \end{enumerate}
