@@ -10,7 +10,7 @@
 \begin{enumerate}
 	\item 新建项目和源文件。操作步骤与 \ref{sec:experiment-1} 相同，项目中只包含 \lstinline[language={}]{main.cpp} 一个文件。
 
-	\item 以源代码的形式引用 JsonCpp 库。
+	\item 以源代码的形式引用 JsonCpp 库。\label{item:exp-2-2}
 
 	JsonCpp\footnote{网址：\url{https://github.com/open-source-parsers/jsoncpp}。} 是一个用于解析 JSON 格式文本并操纵 JSON 对象的 C++ 库，而 JSON 是一种常用的数据交换格式，下面是 JSON 格式文本一例。
 
@@ -29,7 +29,7 @@
 	\begin{enumerate}
 		\item 下载源代码。前往 JsonCpp 最新版本的发布页面\footnote{网址：\url{https://github.com/open-source-parsers/jsoncpp/releases/tag/1.9.5}。}下载源码：\url{https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.zip}。解压后，将其中的 \lstinline[language={}]{src} 文件夹和 \lstinline[language={}]{include} 文件夹移动到项目根目录下新建的 \lstinline[language={}]{JsonCpp} 文件夹中。
 
-		\item 将源文件添加到项目中。在 Dev-C++ 中打开新建的项目，在“项目管理”窗口中右键点击项目，点击弹出菜单中的“添加文件夹”，命名为“JsonCpp”。在“项目管理”窗口中右键点击刚才新建的“JsonCpp”文件夹，点击弹出菜单中的“添加”，进入项目目录下的 \lstinline[language={}]{JsonCpp/src/lib_json}，选择其中所有以 \lstinline[language={}]{.cpp} 为扩展名的文件，点击“打开”。完成后的“项目管理”窗口如图 \ref{fig:manual-library-1} 所示。
+		\item 将源文件添加到项目中。\label{item:exp-2-2-2}在 Dev-C++ 中打开新建的项目，在“项目管理”窗口中右键点击项目，点击弹出菜单中的“添加文件夹”，命名为“JsonCpp”。在“项目管理”窗口中右键点击刚才新建的“JsonCpp”文件夹，点击弹出菜单中的“添加”，进入项目目录下的 \lstinline[language={}]{JsonCpp/src/lib_json}，选择其中所有以 \lstinline[language={}]{.cpp} 为扩展名的文件，点击“打开”。完成后的“项目管理”窗口如图 \ref{fig:manual-library-1} 所示。
 
 		\begin{figure}
 			\centering
@@ -81,7 +81,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 		\end{lstlisting}
 	\end{enumerate}
 
-	\item 以二进制的形式引用 SFML 库。
+	\item 以二进制的形式引用 SFML 库。\label{item:exp-2-3}
 
 	SFML\footnote{网址：\url{https://www.sfml-dev.org/}。} 全称 Simple and Fast Multimedia Library，是一个用于编写游戏和多媒体应用程序的多媒体库。一般而言，多媒体库较为复杂，从源码构建需要较长的时间，所以下面我们将以二进制的形式引用 SFML 库。
 
@@ -155,5 +155,40 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 			\caption{程序运行结果。}
 			\label{fig:manual-library-7}
 		\end{figure}
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{讨论}
+
+\begin{enumerate}
+	\item 各实验步骤的作用。
+
+	严格按照以上实验步骤进行操作，最终可以得到一个可正常运行的 \lstinline[language={}]{.exe} 文件；而缺失步骤则会导致失败，并且缺失不同的步骤会产生不同的现象。下面我们将讨论这些现象。
+
+	\begin{enumerate}
+		\item 不将源文件添加到项目中。在第 \ref{item:exp-2-2} 步中，不做第 \ref{item:exp-2-2-2} 小步，编译代码，将得到以下编译日志。
+
+		\begin{lstlisting}[language={}]
+g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+
+g++.exe main.o -o UseLibraryWrong.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+
+C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: main.o:main.cpp:(.text+0x1a): undefined reference to `Json::Value::Value(int)'
+
+C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: main.o:main.cpp:(.text+0x26): undefined reference to `Json::Value::~Value()'
+collect2.exe: error: ld returned 1 exit status
+C:\Users\lyche\Desktop\UseLibraryWrong\Makefile.win:25: recipe for target 'UseLibraryWrong.exe' failed
+mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
+		\end{lstlisting}
+
+		可以看到，第 1 行的编译命令没有输出其他内容，说明该命令执行成功。而第 3 行的链接命令输出了错误信息，且关键在第 5 行和第 7 行；错误信息反馈，在链接时 \lstinline[language={[17]C++}, moreemph={[1]Value}]{Value} 的构造函数和析构函数出现了 “undefined reference to ...” 的情况，这是因为我们没有将这两个函数的实现所在的源文件添加到项目中，导致这两个函数没有出现在链接所需的中间文件内，因此链接器就告诉我们这两个函数的未定义。
+
+		综上，将源文件添加到项目中的作用是保证源文件参与编译，生成对应的中间文件。
+
+		\item 不将包含目录添加到项目中。
+
+		\item 不将附加链接库添加到项目中。
+
+		\item 不将动态链接库拷贝到可执行文件所在目录。
 	\end{enumerate}
 \end{enumerate}
