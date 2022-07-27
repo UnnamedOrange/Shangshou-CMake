@@ -41,24 +41,24 @@
 	\end{figure}
 \end{enumerate}
 
-值得关注的是 Dev-C++ 的编译日志。
+值得关注的是 Dev-C++ 的编译日志\footnote{为精简篇幅，删除了日志中无关紧要的路径。}。
 
 \begin{lstlisting}[language={}]
 编译单个文件...
 --------
-- 文件名: C:\Users\lyche\Desktop\hello_world.cpp
+- 文件名: hello_world.cpp
 - 编译器名: TDM-GCC 9.2.0 64-bit Release
 
 处理 C++ 源文件...
 --------
-- C++ 编译器: C:\Program Files (x86)\Embarcadero\Dev-Cpp\TDM-GCC-64\bin\g++.exe
-- 命令: g++.exe "C:\Users\lyche\Desktop\hello_world.cpp" -o "C:\Users\lyche\Desktop\hello_world.exe"  -I"C:\Program Files (x86)\Embarcadero\Dev-Cpp\TDM-GCC-64\include" -L"C:\Program Files (x86)\Embarcadero\Dev-Cpp\TDM-GCC-64\lib" -static-libgcc
+- C++ 编译器: g++.exe
+- 命令: g++.exe "hello_world.cpp" -o "hello_world.exe"  -I"Dev-Cpp\TDM-GCC-64\include" -L"Dev-Cpp\TDM-GCC-64\lib" -static-libgcc
 
 编译结果...
 --------
 - 错误: 0
 - 警告: 0
-- 输出文件名: C:\Users\lyche\Desktop\hello_world.exe
+- 输出文件名: hello_world.exe
 - 输出大小: 2.98873424530029 MiB
 - 编译时间: 1.44s
 \end{lstlisting}

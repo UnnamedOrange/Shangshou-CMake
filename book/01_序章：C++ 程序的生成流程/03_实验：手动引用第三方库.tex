@@ -69,15 +69,15 @@ int main()
 		\item 编译并运行代码。“编译日志”窗口记录的命令如下。
 
 		\begin{lstlisting}[language={}]
-g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 
-g++.exe -c JsonCpp/src/lib_json/json_reader.cpp -o JsonCpp/src/lib_json/json_reader.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+g++.exe -c JsonCpp/src/lib_json/json_reader.cpp -o JsonCpp/src/lib_json/json_reader.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 
-g++.exe -c JsonCpp/src/lib_json/json_value.cpp -o JsonCpp/src/lib_json/json_value.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+g++.exe -c JsonCpp/src/lib_json/json_value.cpp -o JsonCpp/src/lib_json/json_value.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 
-g++.exe -c JsonCpp/src/lib_json/json_writer.cpp -o JsonCpp/src/lib_json/json_writer.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+g++.exe -c JsonCpp/src/lib_json/json_writer.cpp -o JsonCpp/src/lib_json/json_writer.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 
-g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
 		\end{lstlisting}
 	\end{enumerate}
 
@@ -133,9 +133,9 @@ int main()
 		\item 编译代码。“编译日志”窗口记录的命令如下（第 3 行的命令是节选）。
 
 		\begin{lstlisting}[language={}]
-g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include" -I"SFML-2.5.1/include"
+g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include" -I"SFML-2.5.1/include"
 
-g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libFLAC.a SFML-2.5.1/lib/libfreetype.a ...
+g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libFLAC.a SFML-2.5.1/lib/libfreetype.a ...
 		\end{lstlisting}
 
 		\item 将动态链接库拷贝到可执行文件所在目录。将 \lstinline[language={}]{SFML/bin} 中所有的 \lstinline[language={}]{.dll} 文件拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
@@ -169,15 +169,15 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 		\item 不将源文件添加到项目中。在第 \ref{item:exp-2-2} 步中，不做第 \ref{item:exp-2-2-2} 小步，编译代码，将得到以下编译日志。
 
 		\begin{lstlisting}[language={}]
-g++.exe -c main.cpp -o main.o -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
+g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 
-g++.exe main.o -o UseLibraryWrong.exe -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+g++.exe main.o -o UseLibraryWrong.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
 
-C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: main.o:main.cpp:(.text+0x1a): undefined reference to `Json::Value::Value(int)'
+ld.exe: main.o:main.cpp:(.text+0x1a): undefined reference to `Json::Value::Value(int)'
 
-C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: main.o:main.cpp:(.text+0x26): undefined reference to `Json::Value::~Value()'
+ld.exe: main.o:main.cpp:(.text+0x26): undefined reference to `Json::Value::~Value()'
 collect2.exe: error: ld returned 1 exit status
-C:\Users\lyche\Desktop\UseLibraryWrong\Makefile.win:25: recipe for target 'UseLibraryWrong.exe' failed
+UseLibraryWrong\Makefile.win:25: recipe for target 'UseLibraryWrong.exe' failed
 mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
 		\end{lstlisting}
 
