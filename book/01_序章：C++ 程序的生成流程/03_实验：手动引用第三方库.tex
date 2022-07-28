@@ -97,7 +97,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 			\label{fig:manual-library-4}
 		\end{figure}
 
-		\item 将附加链接库添加到项目中。在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中所有扩展名为 \lstinline[language={}]{.a} 的文件。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
+		\item 将附加链接库添加到项目中。\label{item:exp-2-3-3}在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中所有扩展名为 \lstinline[language={}]{.a} 的文件。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
 
 		\begin{figure}
 			\centering
@@ -166,7 +166,9 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 	严格按照以上实验步骤进行操作，最终可以得到一个可正常运行的 \lstinline[language={}]{.exe} 文件；而缺失步骤则会导致失败，并且缺失不同的步骤会产生不同的现象。下面我们将讨论这些现象。
 
 	\begin{enumerate}
-		\item 不将源文件添加到项目中。在第 \ref{item:exp-2-2} 步中，不做第 \ref{item:exp-2-2-2} 小步，编译代码，将得到以下编译日志。
+		\item 不将源文件添加到项目中。
+
+		在第 \ref{item:exp-2-2} 步中，不做第 \ref{item:exp-2-2-2} 小步，编译代码，将得到以下编译日志。
 
 		\begin{lstlisting}[language={}]
 g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
@@ -183,7 +185,7 @@ mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
 
 		可以看到，第 1 行的编译命令没有输出其他内容，说明该命令执行成功。而第 3 行的链接命令之后出现了错误信息，且关键在第 5 行和第 7 行；错误信息反馈，在链接时 \lstinline[language={[17]C++}, moreemph={[1]Value}]{Value} 的构造函数和析构函数出现了 “undefined reference to ...” 的情况，这是因为我们没有将这两个函数的实现所在的源文件添加到项目中，导致这两个函数没有出现在链接所需的中间文件内，因此链接器就告诉我们这两个函数的未定义。
 
-		综上，将源文件添加到项目中的作用是保证源文件参与编译，生成对应的中间文件。
+		综上，将源文件添加到项目中的作用是保证源文件参与编译，生成对应的中间文件供链接使用。
 
 		\item 不将包含目录添加到项目中。
 
@@ -206,6 +208,23 @@ mingw32-make.exe: *** [main.o] Error 1
 		综上，将包含目录添加到项目中的作用是保证 \lstinline[language={[17]C++}]{#include} 指令知道相对路径对应的基础路径，从而顺利找到要包含的头文件。
 
 		\item 不将附加链接库添加到项目中。
+
+		在第 \ref{item:exp-2-3} 步中，不做第 \ref{item:exp-2-3-3} 小步，编译代码，将得到以下编译日志（节选）。
+
+		\begin{lstlisting}[language={}]
+g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibraryWrong.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc
+
+ld.exe: main.o:main.cpp:(.text+0xb2): undefined reference to `__imp__ZN2sf9VideoModeC1Ejjj'
+
+ld.exe: main.o:main.cpp:(.text+0x118): undefined reference to `__imp__ZNK2sf6Window6isOpenEv'
+
+collect2.exe: error: ld returned 1 exit status
+UseLibraryWrong\Makefile.win:25: recipe for target 'UseLibraryWrong.exe' failed
+
+mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
+		\end{lstlisting}
+
+		此处的现象与不将源文件添加到项目中的现象相同，都出现了“undefined reference to ...”的错误信息。事实上，附加链接库就是一种编译产生的中间文件，其中包含了函数实现的编译结果。将附加链接库添加到项目中的作用是保证这些中间文件参与链接。
 
 		\item 不将动态链接库拷贝到可执行文件所在目录。
 	\end{enumerate}
