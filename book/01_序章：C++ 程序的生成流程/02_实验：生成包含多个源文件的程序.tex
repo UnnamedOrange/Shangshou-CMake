@@ -32,7 +32,7 @@
 		\label{fig:multi-source-1}
 	\end{figure}
 
-	\item 新建源文件。在“项目管理”窗口中，右键点击项目，点击弹出菜单中的 “New File”。立即保存新建的文件到默认路径，并为它取一个好名称。重复该步骤，得到如图 \ref{fig:multi-source-2} 所示的结果。
+	\item 新建源文件。\label{item:exp-1-2}在“项目管理”窗口中，右键点击项目，点击弹出菜单中的 “New File”。立即保存新建的文件到默认路径，并为它取一个好名称。重复该步骤，得到如图 \ref{fig:multi-source-2} 所示的结果。
 
 	\begin{figure}
 		\centering
@@ -187,4 +187,6 @@ main.o: main.cpp
 	\end{lstlisting}
 
 	make 程序减少了 Dev-C++ 的工作量，Dev-C++ 只需根据项目结构生成 makefile 文件，再调用 make 程序，即可完成整个生成流程。尽管大型项目的组织也可以使用 make，但从上面的第 4 行到第 15 行可以看出，makefile 文件与平台的关联性强，不便于移植。这是 CMake 可以克服的缺点。
+
+	\item 将头文件加入到项目中的作用。注意到，在第 \ref{item:exp-1-2} 步的图 \ref{fig:multi-source-2} 中，头文件 \lstinline[language={}]{another.h} 已被加入到项目中，但原理上头文件只在预编译的过程中以文本替换的形式并入源文件，本身并不参与编译。从生成的 makefile 文件也能看到头文件并没有参与编译。事实上，将头文件加入到项目中的作用往往是提示 IDE 该文件应当包含在项目中，以使语法提示器能够正常工作。
 \end{enumerate}
