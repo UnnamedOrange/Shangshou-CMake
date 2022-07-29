@@ -138,7 +138,7 @@ g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include"
 g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libFLAC.a SFML-2.5.1/lib/libfreetype.a ...
 		\end{lstlisting}
 
-		\item 将动态链接库拷贝到可执行文件所在目录。将 \lstinline[language={}]{SFML/bin} 中所有的 \lstinline[language={}]{.dll} 文件拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
+		\item 将动态链接库拷贝到可执行文件所在目录。\label{item:exp-2-3-6}将 \lstinline[language={}]{SFML/bin} 中所有的 \lstinline[language={}]{.dll} 文件拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
 
 		\begin{figure}
 			\centering
@@ -227,5 +227,25 @@ mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
 		此处的现象与不将源文件添加到项目中的现象相同，都出现了“undefined reference to ...”的错误信息。事实上，附加链接库就是一种编译产生的中间文件，其中包含了函数实现的编译结果。将附加链接库添加到项目中的作用是保证这些中间文件参与链接。
 
 		\item 不将动态链接库拷贝到可执行文件所在目录。
+
+		在第 \ref{item:exp-2-3} 步中，不做第 \ref{item:exp-2-3-6} 小步，编译代码，发现没有出现错误。通过 Dev-C++ 运行程序却无法正常运行，如图 \ref{fig:manual-library-8} 所示。在文件资源管理器中双击打开 \lstinline[language={}]{.exe} 文件，会弹出图 \ref{fig:manual-library-9} 所示的对话框，提示找不到 \lstinline[language={}]{.dll} 文件。
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=\linewidth]{assets/manual-library-8}
+			\caption{返回值非零说明程序异常退出。}
+			\label{fig:manual-library-8}
+		\end{figure}
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.75\linewidth]{assets/manual-library-9}
+			\caption{无法找到 \lstinline[language={}]{.dll} 文件的错误提示框。}
+			\label{fig:manual-library-9}
+		\end{figure}
+
+		事实上，DLL 即\emph{动态链接库（Dynamic Linking Library）}的缩写，而动态链接指在运行时动态加载包含可执行代码的 DLL 文件，有别于此前在生成时将代码链接到可执行文件中的过程。因为动态链接库是单独的文件，不同程序可以共用同一个动态链接库，所以通用的函数常以动态链接的形式使用，以减小可执行文件的大小。
+
+		综上，将动态链接库拷贝到可执行文件所在目录的作用是保证程序在运行时可以找到需要动态加载的文件。
 	\end{enumerate}
 \end{enumerate}
