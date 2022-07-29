@@ -115,18 +115,18 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 
 int main()
 {
-    Json::Value v = 1;
-    sf::Window window(sf::VideoMode(640, 480), "Hello, world!");
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        window.display();
-    }
+	Json::Value v = 1;
+	sf::Window window(sf::VideoMode(640, 480), "Hello, world!");
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		window.display();
+	}
 }
 		\end{lstlisting}
 
