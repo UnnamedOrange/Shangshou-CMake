@@ -256,4 +256,36 @@ mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
 	在第 \ref{item:exp-2-2} 步编写代码时，我们只简单写了 \lstinline[language={[17]C++}, moreemph={[1]Value}]{Json::Value v = 1;} 一句代码，这个程序没有输入输出，也没有任何意义。为什么不写一个具有简单输入输出的样例程序，或者干脆不写？
 
 	编写以上样例代码的目的其实是测试是否成功引用第三方库，所以不必编写一个具有实际意义的程序。但如果不编写任何调用第三方库函数的代码，链接器就不会在中间文件中查找任何第三方库的函数，也就无法起到检查是否成功引用第三方库的作用。
+
+	\item 不同编译器的编译日志。
+
+	不同编译器的编译日志是大同小异的，例如，“undefined reference to ...” 错误在 MSVC 编译器中具有如下形式。
+
+	\begin{lstlisting}[language={}]
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl foo(void)" (?foo@@YAXXZ)，函数 main 中引用了该符号
+	\end{lstlisting}
+
+	尽管不同编译器有不同的中间文件格式、不同的错误代码、不同的提示语言，但所有编译器的原理都是一样的，读者应该主动根据编译器报出的错误信息排查上文涉及的错误。
+
+	\item 附加链接目录。
+
+	图 \ref{fig:manual-library-3} 所示的“文件/目录”选项卡中，还有一个“库目录”子选项卡，为什么我们配置外部库时没有用上它？从图 \ref{fig:manual-library-5} 中链接库的路径可以看出，因为我们已经为中间文件指定了完整的相对路径（\lstinline[language={}]{SFML-2.5.1/lib/}），所以无需再通过“库目录”进行指定。
+
+	不过，我们自然不希望重复写多次相对路径，我们可以尝试执行以下步骤。
+
+	\begin{enumerate}
+		\item 删除图 \ref{fig:manual-library-5} “参数”选项卡的“链接”文本框中的所有基础路径 \lstinline[language={}]{SFML-2.5.1/lib/}。
+		\item 在“文件/目录”选项卡的“库目录”子选项卡中，添加路径 \lstinline[language={}]{SFML-2.5.1/lib}。
+	\end{enumerate}
+
+	删除编译好的可执行文件，重新编译，却发现出现如下错误（节选）。
+
+	\begin{lstlisting}[language={}]
+g++.exe: error: libFLAC.a: No such file or directory
+g++.exe: error: libfreetype.a: No such file or directory
+	\end{lstlisting}
+
+	这似乎说明我们添加的库目录没有起作用。事实上，链接外部库应该使用编译选项 \lstinline[language={}]{-l}，且无需以 \lstinline[language={}]{lib} 开头、无需指定扩展名。例如，我们需要把“链接”文本框中的 \lstinline[language={}]{libFLAC.a} 修改为 \lstinline[language={}]{-lFLAC}。像前文那样直接写中间文件路径并不是标准的链接外部库的方式，那种写法应当只用于刚刚编译好的中间文件的链接；\textbf{使用 \lstinline[language={}]{-L} 指定的附加链接目录只对使用 \lstinline[language={}]{-l} 选项指定的库有效}也印证了这一观点。
+
+	\item 适用于调试的库文件。
 \end{enumerate}
