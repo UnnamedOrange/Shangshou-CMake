@@ -97,7 +97,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 			\label{fig:manual-library-4}
 		\end{figure}
 
-		\item 将附加链接库添加到项目中。\label{item:exp-2-3-3}在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中所有扩展名为 \lstinline[language={}]{.a} 的文件。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
+		\item 将附加链接库添加到项目中。\label{item:exp-2-3-3}在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中的 \lstinline[language={}]{libopenal32.a}、\lstinline[language={}]{libsfml-system.a}、\lstinline[language={}]{libsfml-window.a}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
 
 		\begin{figure}
 			\centering
@@ -130,20 +130,20 @@ int main()
 }
 		\end{lstlisting}
 
-		\item 编译代码。“编译日志”窗口记录的命令如下（第 3 行的命令是节选）。
+		\item 编译代码。“编译日志”窗口记录的命令如下。
 
 		\begin{lstlisting}[language={}]
 g++.exe -c main.cpp -o main.o -I"Dev-Cpp/TDM-GCC-64/include" -I"JsonCpp/include" -I"SFML-2.5.1/include"
 
-g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_value.o JsonCpp/src/lib_json/json_writer.o -o UseLibrary.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libFLAC.a SFML-2.5.1/lib/libfreetype.a ...
+g++.exe main.o json_reader.o json_value.o json_writer.o -o UseLibrary.exe -L"Dev-Cpp/TDM-GCC-64/lib" -static-libgcc SFML-2.5.1/lib/libopenal32.a SFML-2.5.1/lib/libsfml-system.a SFML-2.5.1/lib/libsfml-window.a
 		\end{lstlisting}
 
-		\item 将动态链接库拷贝到可执行文件所在目录。\label{item:exp-2-3-6}将 \lstinline[language={}]{SFML/bin} 中所有的 \lstinline[language={}]{.dll} 文件拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
+		\item 将动态链接库拷贝到可执行文件所在目录。\label{item:exp-2-3-6}将 \lstinline[language={}]{SFML/bin} 中的 \lstinline[language={}]{openal32.dll}、\lstinline[language={}]{sfml-system-2.dll}、\lstinline[language={}]{sfml-window-2.dll} 拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
 
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-6}
-			\caption{需要保证所有 \lstinline[language={}]{.dll} 文件与 \lstinline[language={}]{.exe} 文件位于同一目录。}
+			\caption{需要保证这些 \lstinline[language={}]{.dll} 文件与 \lstinline[language={}]{.exe} 文件位于同一目录。}
 			\label{fig:manual-library-6}
 		\end{figure}
 
@@ -278,14 +278,15 @@ main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl foo(void)" (
 		\item 在“文件/目录”选项卡的“库目录”子选项卡中，添加路径 \lstinline[language={}]{SFML-2.5.1/lib}。
 	\end{enumerate}
 
-	删除编译好的可执行文件，重新编译，却发现出现如下错误（节选）。
+	删除编译好的可执行文件，重新编译，却发现出现如下错误。
 
 	\begin{lstlisting}[language={}]
-g++.exe: error: libFLAC.a: No such file or directory
-g++.exe: error: libfreetype.a: No such file or directory
+g++.exe: error: libopenal32.a: No such file or directory
+g++.exe: error: libsfml-system.a: No such file or directory
+g++.exe: error: libsfml-window.a: No such file or directory
 	\end{lstlisting}
 
-	这似乎说明我们添加的库目录没有起作用。事实上，链接外部库应该使用编译选项 \lstinline[language={}]{-l}，且无需以 \lstinline[language={}]{lib} 开头、无需指定扩展名。例如，我们需要把“链接”文本框中的 \lstinline[language={}]{libFLAC.a} 修改为 \lstinline[language={}]{-lFLAC}。像前文那样直接写中间文件路径并不是标准的链接外部库的方式，那种写法应当只用于刚刚编译好的中间文件的链接；\textbf{使用 \lstinline[language={}]{-L} 指定的附加链接目录只对使用 \lstinline[language={}]{-l} 选项指定的库有效}也印证了这一观点。
+	这似乎说明我们添加的库目录没有起作用。事实上，链接外部库应该使用编译选项 \lstinline[language={}]{-l}，且无需以 \lstinline[language={}]{lib} 开头、无需指定扩展名。例如，我们需要把“链接”文本框中的 \lstinline[language={}]{libopenal32.a} 修改为 \lstinline[language={}]{-lopenal32}。像前文那样直接写中间文件路径并不是标准的链接外部库的方式，那种写法应当只用于刚刚编译好的中间文件的链接；\textbf{使用 \lstinline[language={}]{-L} 指定的附加链接目录只对使用 \lstinline[language={}]{-l} 选项指定的库有效}也印证了这一观点。
 
 	\item 适用于调试的库文件。在 \lstinline[language={}]{SFML-2.5.1/lib} 文件夹和 \lstinline[language={}]{SFML-2.5.1/bin} 文件夹中，都存在以 \lstinline[language={}]{-d} 结尾的文件。这些 d 表示 Debug，与其他库文件相比，以 \lstinline[language={}]{-d} 结尾的文件中的代码带有调试信息，代码优化的程度可能更低，更方便开发人员进行调试。
 
