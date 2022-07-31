@@ -288,7 +288,7 @@ g++.exe: error: libsfml-window.a: No such file or directory
 
 	这似乎说明我们添加的库目录没有起作用。事实上，链接外部库应该使用编译选项 \lstinline[language={}]{-l}，且无需以 \lstinline[language={}]{lib} 开头、无需指定扩展名。例如，我们需要把“链接”文本框中的 \lstinline[language={}]{libopenal32.a} 修改为 \lstinline[language={}]{-lopenal32}。像前文那样直接写中间文件路径并不是标准的链接外部库的方式，那种写法应当只用于刚刚编译好的中间文件的链接；\textbf{使用 \lstinline[language={}]{-L} 指定的附加链接目录只对使用 \lstinline[language={}]{-l} 选项指定的库有效}也印证了这一观点。
 
-	\item 适用于调试的库文件。在 \lstinline[language={}]{SFML-2.5.1/lib} 文件夹和 \lstinline[language={}]{SFML-2.5.1/bin} 文件夹中，都存在以 \lstinline[language={}]{-d} 结尾的文件。这些 d 表示 Debug，与其他库文件相比，以 \lstinline[language={}]{-d} 结尾的文件中的代码带有调试信息，代码优化的程度可能更低，更方便开发人员进行调试。
+	\item 适用于调试的库文件。在 \lstinline[language={}]{SFML-2.5.1/lib} 文件夹和 \lstinline[language={}]{SFML-2.5.1/bin} 文件夹中，都存在以 \lstinline[language={}]{-d} 结尾的文件，例如 \lstinline[language={}]{libsfml-system-d.a}。这些 d 表示 debug，与其他库文件相比，以 \lstinline[language={}]{-d} 结尾的文件中的代码带有调试信息，代码优化的程度可能更低，更方便开发人员进行调试。
 
-	\item 静态链接。
+	\item 静态链接。在 \lstinline[language={}]{SFML-2.5.1/lib} 文件夹中，还存在名字中包含 \lstinline[language={}]{-s} 的文件，例如 \lstinline[language={}]{libsfml-system-s.a}。这些 s 表示 static，说明这些库是\emph{静态链接库（static linking library）}，链接静态库的程序在同目录下无需存在对应的动态链接库文件。显然，静态链接有助于减少可执行文件的外部依赖文件，提高了程序的便携性，但静态链接也增大了可执行文件本身的体积、降低了分模块维护软件的灵活性。有些开源许可还限制了静态链接的使用，所以并不是所有的第三方库都可以使用静态链接。
 \end{enumerate}
