@@ -287,5 +287,7 @@ g++.exe: error: libfreetype.a: No such file or directory
 
 	这似乎说明我们添加的库目录没有起作用。事实上，链接外部库应该使用编译选项 \lstinline[language={}]{-l}，且无需以 \lstinline[language={}]{lib} 开头、无需指定扩展名。例如，我们需要把“链接”文本框中的 \lstinline[language={}]{libFLAC.a} 修改为 \lstinline[language={}]{-lFLAC}。像前文那样直接写中间文件路径并不是标准的链接外部库的方式，那种写法应当只用于刚刚编译好的中间文件的链接；\textbf{使用 \lstinline[language={}]{-L} 指定的附加链接目录只对使用 \lstinline[language={}]{-l} 选项指定的库有效}也印证了这一观点。
 
-	\item 适用于调试的库文件。
+	\item 适用于调试的库文件。在 \lstinline[language={}]{SFML-2.5.1/lib} 文件夹和 \lstinline[language={}]{SFML-2.5.1/bin} 文件夹中，都存在以 \lstinline[language={}]{-d} 结尾的文件。这些 d 表示 Debug，与其他库文件相比，以 \lstinline[language={}]{-d} 结尾的文件中的代码带有调试信息，代码优化的程度可能更低，更方便开发人员进行调试。
+
+	\item 静态链接。
 \end{enumerate}
