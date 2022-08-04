@@ -15,7 +15,7 @@ int main()
 
 C++20 标准引入了\emph{模块（module）}来解决编译速度慢的问题，引入模块后的生成流程可以用图 \ref{fig:module} 示意\cite{cpp-module-1}。从图中可以看到，引入模块后不再存在效率低下的文本替换，不会再用到 \lstinline[language={[latest]C++}]{#include} 指令。取而代之的模块接口文件只需被编译一次，就能为后续流程提供可以快速读取的接口信息缓存。实践表明，使用模块可以得到十倍量级的编译性能提升\cite{cpp-module-2}。
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.15]{assets/module}
 	\caption{使用模块的生成流程示意图。}

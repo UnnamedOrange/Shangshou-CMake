@@ -31,7 +31,7 @@
 
 		\item 将源文件添加到项目中。\label{item:exp-2-2-2}在 Dev-C++ 中打开新建的项目，在“项目管理”窗口中右键点击项目，点击弹出菜单中的“添加文件夹”，命名为“JsonCpp”。在“项目管理”窗口中右键点击刚才新建的“JsonCpp”文件夹，点击弹出菜单中的“添加”，进入项目目录下的 \lstinline[language={}]{JsonCpp/src/lib_json}，选择其中所有以 \lstinline[language={}]{.cpp} 为扩展名的文件，点击“打开”。完成后的“项目管理”窗口如图 \ref{fig:manual-library-1} 所示。
 
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.2\linewidth]{assets/manual-library-1}
 			\caption{添加源文件后的“项目管理”窗口。}
@@ -40,14 +40,14 @@
 
 		\item 将包含目录添加到项目中。\label{item:exp-2-2-3}在“项目管理”窗口中右键点击项目，点击弹出菜单中的“项目属性”。在弹出的对话框中，点击“文件/目录”选项卡，再点击“包含文件目录”子选项卡。点击右下角的选择文件夹按钮（图 \ref{fig:manual-library-2} 中的蓝色按钮），选择项目目录下的 \lstinline[language={}]{JsonCpp/include} 文件夹，按钮旁的编辑框将显示完整路径。删除其中的绝对路径，只保留 \lstinline[language={}]{JsonCpp/include}，然后点击“添加”。完成后的“项目属性”对话框如图 \ref{fig:manual-library-3} 所示\footnote{也可以直接在编辑框中输入 \lstinline[language={}]{JsonCpp/include}，不点击选择文件夹按钮。}。最后点击“确定”退出该对话框。
 
-		\begin{figure}
+		\begin{figure}[p]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-2}
 			\caption{“项目属性”对话框。}
 			\label{fig:manual-library-2}
 		\end{figure}
 
-		\begin{figure}
+		\begin{figure}[p]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-3}
 			\caption{完成后的“项目属性”对话框。}
@@ -90,7 +90,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 
 		\item 将包含目录添加到项目中。操作步骤与此前相同，添加的包含目录为 \lstinline[language={}]{SFML-2.5.1/include}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-4} 所示。
 
-		\begin{figure}
+		\begin{figure}[p]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-4}
 			\caption{添加包含目录后的“项目属性”对话框。}
@@ -99,7 +99,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 
 		\item 将附加链接库添加到项目中。\label{item:exp-2-3-3}在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中的 \lstinline[language={}]{libopenal32.a}、\lstinline[language={}]{libsfml-system.a}、\lstinline[language={}]{libsfml-window.a}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
 
-		\begin{figure}
+		\begin{figure}[p]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-5}
 			\caption{添加附加链接库后的“项目属性”对话框。}
@@ -140,7 +140,7 @@ g++.exe main.o json_reader.o json_value.o json_writer.o -o UseLibrary.exe -L"Dev
 
 		\item 将动态链接库拷贝到可执行文件所在目录。\label{item:exp-2-3-6}将 \lstinline[language={}]{SFML/bin} 中的 \lstinline[language={}]{openal32.dll}、\lstinline[language={}]{sfml-system-2.dll}、\lstinline[language={}]{sfml-window-2.dll} 拷贝到项目根目录中，保证生成的 \lstinline[language={}]{.exe} 文件与这些 \lstinline[language={}]{.dll} 文件位于同一目录，如图 \ref{fig:manual-library-6} 所示。
 
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-6}
 			\caption{需要保证这些 \lstinline[language={}]{.dll} 文件与 \lstinline[language={}]{.exe} 文件位于同一目录。}
@@ -149,7 +149,7 @@ g++.exe main.o json_reader.o json_value.o json_writer.o -o UseLibrary.exe -L"Dev
 
 		\item 运行程序。在 Dev-C++ 中点击菜单栏中的“运行”、“运行”，可以看到一个控制台窗口和一个黑色窗口弹出，如图 \ref{fig:manual-library-7} 所示。
 
-		\begin{figure}
+		\begin{figure}[ht]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-7}
 			\caption{程序运行结果。}
@@ -230,14 +230,14 @@ mingw32-make.exe: *** [UseLibraryWrong.exe] Error 1
 
 		在第 \ref{item:exp-2-3} 步中，不做第 \ref{item:exp-2-3-6} 小步，编译代码，发现没有出现错误。通过 Dev-C++ 运行程序却无法正常运行，如图 \ref{fig:manual-library-8} 所示。在文件资源管理器中双击打开 \lstinline[language={}]{.exe} 文件，会弹出图 \ref{fig:manual-library-9} 所示的对话框，提示找不到 \lstinline[language={}]{.dll} 文件。
 
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=\linewidth]{assets/manual-library-8}
 			\caption{返回值非零说明程序异常退出。}
 			\label{fig:manual-library-8}
 		\end{figure}
 
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-9}
 			\caption{无法找到 \lstinline[language={}]{.dll} 文件的错误提示框。}
