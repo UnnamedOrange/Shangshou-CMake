@@ -19,7 +19,6 @@
 	showstringspaces = false,
 }
 \lstdefinelanguage[17]{C++}[11]{C++}{
-	morestring=[s]{<}{>},
 	morekeywords={%
 		},
 	emphstyle=\color{typecolor},
@@ -30,6 +29,20 @@
 			main,%
 		},
 	emphstyle={[3]\color{macrocolor}},
+	moreemph={[3]%
+		},
+}
+\lstdefinelanguage[latest]{C++}[17]{C++}{
+	morekeywords={%
+			concept,
+			module,
+			import,
+		},
+	moreemph={%
+		},
+	moreemph={[2]%
+			main,%
+		},
 	moreemph={[3]%
 		},
 }
