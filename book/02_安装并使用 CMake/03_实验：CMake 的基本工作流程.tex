@@ -18,11 +18,62 @@
 
 	从开始菜单打开 cmake-gui，点击“Brouse Source...”按钮，选择刚才新建的文件夹。再将图 \ref{fig:cmake-gui-2} 中“生成文件的目录”设定为工作目录下的另一个文件夹（通常以 \lstinline[language={}]{build} 开头命名），如图 \ref{fig:empty-cmake-1} 所示。
 
-	\begin{figure}
+	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.75\linewidth]{assets/empty-cmake-1}
+		\includegraphics[width=0.65\linewidth]{assets/empty-cmake-1}
 		\caption{填写源代码所在目录和生成文件目录的示例。}
 		\label{fig:empty-cmake-1}
+	\end{figure}
+
+	\item 配置项目。
+
+	点击图 \ref{fig:cmake-gui-1} 中的“Configure”按钮，弹出对话框提示生成文件的目录不存在，需要创建文件夹（图 \ref{fig:empty-cmake-2}），点击“Yes”。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.35\linewidth]{assets/empty-cmake-2}
+		\caption{提示创建生成目录文件夹的对话框。}
+		\label{fig:empty-cmake-2}
+	\end{figure}
+
+	随后弹出图 \ref{fig:empty-cmake-3} 所示的对话框。目前我们不研究它，直接点击“完成”（“Finish”）\footnote{此处要求已安装图 \ref{fig:empty-cmake-3} 中显示的 Visual Studio 2022。如果你没有安装，请点击该下拉列表框，选择计算机中已安装的编译器。之后的内容以 Visual Studio 2022 为例。}。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{assets/empty-cmake-3}
+		\caption{一个对话框，目前我们不研究它。}
+		\label{fig:empty-cmake-3}
+	\end{figure}
+
+	然后可以观察到图 \ref{fig:empty-cmake-4} 所示的主窗口。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{assets/empty-cmake-4}
+		\caption{配置项目后的 cmake-gui 主窗口。}
+		\label{fig:empty-cmake-4}
+	\end{figure}
+
+	前往查看源代码所在目录和生成文件的目录。发现源代码所在目录下的文件并未发生变化，而生成文件的目录下出现了图 \ref{fig:empty-cmake-5} 所示的文件。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{assets/empty-cmake-5}
+		\caption{配置项目后生成的文件。}
+		\label{fig:empty-cmake-5}
+	\end{figure}
+
+	\item 生成项目。
+
+	点击图 \ref{fig:cmake-gui-1} 中的“Generate”按钮，观察到 cmake-gui 的日志文本框中直接显示“Generating done”。
+
+	前往查看源代码所在目录和生成文件的目录。发现源代码所在目录下的文件仍未发生变化，而生成文件的目录下额外出现了 Visual Studio 项目文件，如图 \ref{fig:empty-cmake-6} 所示。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{assets/empty-cmake-6}
+		\caption{生成项目后生成的文件。}
+		\label{fig:empty-cmake-6}
 	\end{figure}
 \end{enumerate}
 
