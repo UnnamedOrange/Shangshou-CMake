@@ -1,4 +1,4 @@
-name: build
+name: release
 
 on:
   push:
@@ -24,10 +24,12 @@ jobs:
           restore-keys: |
            ${{ runner.os }}-tectonic-
   
-      - uses: wtfjoke/setup-tectonic@v1
+      - name: Init Tectonic
+        uses: wtfjoke/setup-tectonic@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          biber-version: "latest"
+          tectonic-version: 0.9.0
+          biber-version: 2.16
 
       - name: Run Tectonic + Biber
         run: tectonic book/book.tex
