@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        name: Tectonic Cache
+        with:
+          path: ~/.cache/Tectonic
+          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+           ${{ runner.os }}-tectonic-
+  
+      - name: Init Tectonic
+        uses: wtfjoke/setup-tectonic@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tectonic-version: 0.9.0
+          biber-version: 2.16
+
+      - name: Get Version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Run Tectonic + Biber
+        run: tectonic book/book.tex
+      
+      - name: Name the Book
+        run: |
+          mv book/book.pdf book/ShangshouCMake-${{ steps.get_version.outputs.VERSION }}.pdf
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: book/ShangshouCMake-*.pdf
