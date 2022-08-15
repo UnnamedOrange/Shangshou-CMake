@@ -79,4 +79,16 @@
 
 \subsection*{讨论}
 
+\begin{enumerate}
+	\item CMake 的基本工作流程总结。
 
+	CMake 的工作可以分为\emph{配置项目（configure）}和\emph{生成项目（generate）}这两个步骤。具体而言：
+
+	\begin{itemize}
+		\item 配置项目的作用是检测编译器支持的\emph{特性（feature）}（见图 \ref{fig:empty-cmake-4} 中的日志文本框）、更新缓存变量文件 \lstinline[language={}]{CMakeCache.txt}。概括地说，\textbf{它的功能是收集 CMake 自身所需要的全部信息}。
+
+		\item 生成项目的作用是根据 CMake 收集的信息\textbf{生成项目工程文件}，例如图 \ref{fig:empty-cmake-6} 中的 Visual Studio 解决方案文件 \lstinline[language={}]{Project.sln}。除此之外，也可以指定 CMake 生成 makefile 文件，我们将在之后介绍相关内容。 % TODO: 指定章节、概括得更具体。
+	\end{itemize}
+
+	可以看出，CMake 本身并不参与 C++ 程序的\emph{生成（build）}，\textbf{它的主要功能是生成用户需要的项目工程文件}。因此，CMake 跨平台的能力来自它对不同平台上不同编译器的广泛支持。只要你的计算机中安装有支持的编译器，CMake 就能通过你编写的 \lstinline[language={}]{CMakeLists.txt} 生成适合该编译器的文件，也就实现了一份源代码处处编译的愿景——当然，前提是你编写的 C++ 源代码本身跨平台且足够好，不会因为更换了编译器而编译失败。
+\end{enumerate}
