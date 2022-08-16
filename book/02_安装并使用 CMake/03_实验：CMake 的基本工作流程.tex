@@ -91,4 +91,15 @@
 	\end{itemize}
 
 	可以看出，CMake 本身并不参与 C++ 程序的\emph{生成（build）}，\textbf{它的主要功能是生成用户需要的项目工程文件}。因此，CMake 跨平台的能力来自它对不同平台上不同编译器的广泛支持。只要你的计算机中安装有支持的编译器，CMake 就能通过你编写的 \lstinline[language={}]{CMakeLists.txt} 生成适合该编译器的文件，也就实现了一份源代码处处编译的愿景——当然，前提是你编写的 C++ 源代码本身跨平台且足够好，不会因为更换了编译器而编译失败。
+
+	值得注意的是，配置项目和生成项目通常会合成一步，统称为\emph{配置项目（configure）}。图 \ref{fig:configure} 展示了各名词之间的关系。
+
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.7\linewidth]{assets/configure}
+		\caption{配置项目（configure）、生成项目（generate）、生成（build）之间的关系。}
+		\label{fig:configure}
+	\end{figure}
+
+	为了进一步降低开发难度，\textbf{还可以通过命令行让 CMake 帮助我们调用编译器或生成工具}，所以可以认为图 \ref{fig:configure} 中的“生成 C++ 程序”也属于 CMake 的工作流程。
 \end{enumerate}
