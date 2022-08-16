@@ -96,10 +96,21 @@
 
 	\begin{figure}[t]
 		\centering
-		\includegraphics[width=0.7\linewidth]{assets/configure}
+		\includegraphics[scale=0.15]{assets/configure}
 		\caption{配置项目（configure）、生成项目（generate）、生成（build）之间的关系。}
 		\label{fig:configure}
 	\end{figure}
 
 	为了进一步降低开发难度，\textbf{还可以通过命令行让 CMake 帮助我们调用编译器或生成工具}，所以可以认为图 \ref{fig:configure} 中的“生成 C++ 程序”也属于 CMake 的工作流程。
+
+	\item \lstinline[language={}]{CMakeCache.txt}。
+
+	在 cmake-gui 中点击配置项目后，用文本编辑器打开生成的 \lstinline[language={}]{CMakeCache.txt}，部分内容如图 \ref{fig:cmake-cache} 所示。
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{assets/cmake-cache}
+		\caption{\lstinline[language={}]{CMakeCache.txt} 内容节选。}
+		\label{fig:cmake-cache}
+	\end{figure}
 \end{enumerate}
