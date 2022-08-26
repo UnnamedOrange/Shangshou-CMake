@@ -113,4 +113,6 @@
 		\caption{\lstinline[language={}]{CMakeCache.txt} 内容节选。}
 		\label{fig:cmake-cache}
 	\end{figure}
+
+	可以看到，\lstinline[language={}]{CMakeCache.txt} 中保存的\textbf{缓存变量是一系列的键值对}，只有 \lstinline[language={}]{KEY:TYPE=VALUE} 一种语法。对比图 \ref{fig:empty-cmake-4} 和图 \ref{fig:cmake-cache}，发现图 \ref{fig:empty-cmake-4} 中的缓存变量要少很多。要解决这一问题，只需点击 cmake-gui 中的 Advanced 复选框，就能在列表中显示所有的缓存变量了。
 \end{enumerate}
