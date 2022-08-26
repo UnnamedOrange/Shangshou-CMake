@@ -14,7 +14,7 @@
 		没错，尽管其他教程可能已经开始教你如何建立一个最小工程了，但我们在两章后才做这件事。现在的 \lstinline[language={}]{CMakeLists.txt} 就是一个空文件。
 	\end{note}
 
-	\item 在 cmake-gui 中打开新建的文件夹。
+	\item 在 cmake-gui 中打开新建的文件夹。\label{item:exp-3-2}
 
 	从开始菜单打开 cmake-gui，点击“Brouse Source...”按钮，选择刚才新建的文件夹。再将图 \ref{fig:cmake-gui-2} 中“生成文件的目录”设定为工作目录下的另一个文件夹（通常以 \lstinline[language={}]{build} 开头命名），如图 \ref{fig:empty-cmake-1} 所示。
 
@@ -25,7 +25,7 @@
 		\label{fig:empty-cmake-1}
 	\end{figure}
 
-	\item 配置项目。
+	\item 配置项目。\label{item:exp-3-3}
 
 	点击图 \ref{fig:cmake-gui-1} 中的“Configure”按钮，弹出对话框提示生成文件的目录不存在，需要创建文件夹（图 \ref{fig:empty-cmake-2}），点击“Yes”。
 
@@ -63,7 +63,7 @@
 		\label{fig:empty-cmake-5}
 	\end{figure}
 
-	\item 生成项目。
+	\item 生成项目。\label{item:exp-3-4}
 
 	点击图 \ref{fig:cmake-gui-1} 中的“Generate”按钮，观察到 cmake-gui 的日志文本框中直接显示“Generating done”。
 
@@ -115,4 +115,13 @@
 	\end{figure}
 
 	可以看到，\lstinline[language={}]{CMakeCache.txt} 中保存的\textbf{缓存变量是一系列的键值对}，只有 \lstinline[language={}]{KEY:TYPE=VALUE} 一种语法。对比图 \ref{fig:empty-cmake-4} 和图 \ref{fig:cmake-cache}，发现图 \ref{fig:empty-cmake-4} 中的缓存变量要少很多。要解决这一问题，只需点击 cmake-gui 中的 Advanced 复选框，就能在列表中显示所有的缓存变量了。
+
+	\item 生成目录不要与源代码所在目录相同。
+
+	第 \ref{item:exp-3-2} 步中，我们要求将生成文件的目录设定为工作目录下的另一个文件夹。如果令生成目录完全等于源代码所在目录，可以预见，步骤 \ref{item:exp-3-3} 和步骤 \ref{item:exp-3-4} 中生成的项目文件（图 \ref{fig:empty-cmake-6}）将直接出现在源代码所在目录中，破坏我们的源代码结构，所以\textbf{一定不能把生成目录直接设定为源代码所在目录}。
+	% TODO: 指定章节。
+	之后我们可以编写 CMake 代码阻止生成目录与源代码目录完全相同的情况发生。
+
+	通常，可以指定生成目录为源代码目录下的一个子文件夹，例如该实验中可以指定为 \lstinline[language={}]{~/Desktop/empty-cmake/build}。之所以我们在第 \ref{item:exp-3-2} 步把生成目录指定在了源代码目录的外面，是因为 CMakeLists 可以请求检索源代码目录下的\textbf{所有}文件。如果生成的文件出现在了源代码文件夹中，即使它们位于单独的文件夹中，也仍可能对 CMake 的文件检索造成影响。因此，\textbf{应当尽可能把生成目录指定在源代码所在目录外}。
+
 \end{enumerate}
