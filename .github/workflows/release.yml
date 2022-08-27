@@ -16,14 +16,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - uses: actions/cache@v3
-        name: Tectonic Cache
+      - name: Tectonic Cache
+        uses: actions/cache@v3
         with:
           path: ~/.cache/Tectonic
           key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
           restore-keys: |
            ${{ runner.os }}-tectonic-
-  
+
       - name: Init Tectonic
         uses: wtfjoke/setup-tectonic@v1
         with:
@@ -35,9 +35,9 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
-      - name: Run Tectonic + Biber
+      - name: Run Tectonic
         run: tectonic book/book.tex
-      
+
       - name: Name the Book
         run: |
           mv book/book.pdf book/ShangshouCMake-${{ steps.get_version.outputs.VERSION }}.pdf

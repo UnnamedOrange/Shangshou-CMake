@@ -15,15 +15,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Build LaTeX
-        uses: dante-ev/latex-action@2021-A
+      - name: Tectonic Cache
+        uses: actions/cache@v3
         with:
-          # The root LaTeX file to be compiled
-          root_file: book.tex
-          # The working directory for the latex compiler to be invoked
-          working_directory: book/
-          # Extra arguments to be passed to the latex compiler
-          args: -xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+          path: ~/.cache/Tectonic
+          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+           ${{ runner.os }}-tectonic-
+
+      - name: Init Tectonic
+        uses: wtfjoke/setup-tectonic@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          tectonic-version: 0.9.0
+          biber-version: 2.16
+
+      - name: Run Tectonic
+        run: tectonic book/book.tex
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v3.1.0
