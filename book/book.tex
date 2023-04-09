@@ -3,10 +3,14 @@
 \ExecuteBibliographyOptions{sorting=gb7714-2015}
 \addbibresource[location=local]{reference.bib}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \input{00_犄角旮旯/lstlisting}
 
 \usepackage{float}
 \usepackage{zhlipsum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{上手 CMake}
 \subtitle{Shangshou CMake}
@@ -19,27 +23,28 @@
 
 \begin{document}
 
-	% Support Biber with texify.
-	\makeatletter
-	\immediate\write\@mainaux{\noexpand\bibstyle{}}%
-	\immediate\write\@mainaux{\noexpand\bibdata{}}
-	\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
 
-	\maketitle
+\maketitle
 
-	\chapter*{前言}
-	\markboth{前言}{前言}
+\chapter*{前言}
+\markboth{前言}{前言}
 
-	\input{00_犄角旮旯/前言}
+\input{00_犄角旮旯/前言}
 
-	\tableofcontents
+\tableofcontents
 
-	\mainmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
 
-	\input{01_序章：C++ 程序的生成流程/collection}
+\input{01_序章：C++ 程序的生成流程/collection}
 
-	\input{02_安装并使用 CMake/collection}
+\input{02_安装并使用 CMake/collection}
 
-	\printbibliography[heading=bibintoc, title=\ebibname]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+
+\printbibliography[heading=bibintoc, title=\ebibname]
 
 \end{document}
