@@ -5,9 +5,6 @@ on:
     tags:
       - "v*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,27 +13,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Tectonic Cache
-        uses: actions/cache@v3
+      - name: Build LaTeX
+        uses: dante-ev/latex-action@2021-A
         with:
-          path: ~/.cache/Tectonic
-          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
-          restore-keys: |
-           ${{ runner.os }}-tectonic-
-
-      - name: Init Tectonic
-        uses: wtfjoke/setup-tectonic@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          tectonic-version: 0.9.0
-          biber-version: 2.16
+          root_file: book.tex
+          working_directory: book/
+          compiler: latexmk
+          args: -xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
       - name: Get Version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-
-      - name: Run Tectonic
-        run: tectonic book/book.tex
 
       - name: Name the Book
         run: |
