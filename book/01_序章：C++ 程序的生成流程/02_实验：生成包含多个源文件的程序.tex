@@ -144,7 +144,7 @@ int main()
 
 	问题实际上就在于文本替换。如果存在另一个源文件 \lstinline[language={}]{yet_another.cpp}，它也通过 \lstinline[language={[17]C++}]{#include} 指令包含了 \lstinline[language={}]{another.h}，则文本替换后，\lstinline[language={[17]C++}, moreemph={[2]another}]{another} 函数将存在两个实现：这是链接器不允许的。
 
-	综上，声明与实现分离的原因是避免展开 \lstinline[language={[17]C++}]{#include} 指令后在多个源文件中出现重复的函数实现\footnote{可以使用 \lstinline[language={[17]C++}]{inline} 关键字告诉编译器这个函数可以因为多次 \lstinline[language={[17]C++}]{#include} 重复定义。尽管如此，一般仍然会分离函数的声明和实现，以避免展开 \lstinline[language={[17]C++}]{#include} 指令产生大量实现代码，从而提升编译速度。相关知识属于 C++ 语法范畴，此处不予详细讨论。}。
+	综上，声明与实现分离的原因是避免展开 \lstinline[language={[17]C++}]{#include} 指令后在多个源文件中出现重复的函数实现\footnote{可以使用 \lstinline[language={[17]C++}]{inline} 关键字告诉编译器这个函数可以因为多次 \texttt{\#include} 重复定义。尽管如此，一般仍然会分离函数的声明和实现，以避免展开 \texttt{\#include} 指令产生大量实现代码，从而提升编译速度。相关知识属于 C++ 语法范畴，此处不予详细讨论。}。
 
 	\item make。
 
