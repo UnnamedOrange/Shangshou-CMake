@@ -40,14 +40,14 @@
 
 		\item 将包含目录添加到项目中。\label{item:exp-2-2-3}在“项目管理”窗口中右键点击项目，点击弹出菜单中的“项目属性”。在弹出的对话框中，点击“文件/目录”选项卡，再点击“包含文件目录”子选项卡。点击右下角的选择文件夹按钮（图 \ref{fig:manual-library-2} 中的蓝色按钮），选择项目目录下的 \lstinline[language={}]{JsonCpp/include} 文件夹，按钮旁的编辑框将显示完整路径。删除其中的绝对路径，只保留 \lstinline[language={}]{JsonCpp/include}，然后点击“添加”。完成后的“项目属性”对话框如图 \ref{fig:manual-library-3} 所示\footnote{也可以直接在编辑框中输入 \lstinline[language={}]{JsonCpp/include}，不点击选择文件夹按钮。}。最后点击“确定”退出该对话框。
 
-		\begin{figure}[p]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-2}
 			\caption{“项目属性”对话框。}
 			\label{fig:manual-library-2}
 		\end{figure}
 
-		\begin{figure}[p]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-3}
 			\caption{完成后的“项目属性”对话框。}
@@ -90,7 +90,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 
 		\item 将包含目录添加到项目中。操作步骤与此前相同，添加的包含目录为 \lstinline[language={}]{SFML-2.5.1/include}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-4} 所示。
 
-		\begin{figure}[p]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-4}
 			\caption{添加包含目录后的“项目属性”对话框。}
@@ -99,7 +99,7 @@ g++.exe main.o JsonCpp/src/lib_json/json_reader.o JsonCpp/src/lib_json/json_valu
 
 		\item 将附加链接库添加到项目中。\label{item:exp-2-3-3}在“项目属性”对话框中，进入“参数”选项卡，点击“链接”文本框下的“加入库或者对象”，选择项目目录下 \lstinline[language={}]{SFML-2.5.1/lib} 中的 \lstinline[language={}]{libopenal32.a}、\lstinline[language={}]{libsfml-system.a}、\lstinline[language={}]{libsfml-window.a}。完成后的“项目属性”对话框如图 \ref{fig:manual-library-5} 所示。
 
-		\begin{figure}[p]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.75\linewidth]{assets/manual-library-5}
 			\caption{添加附加链接库后的“项目属性”对话框。}
