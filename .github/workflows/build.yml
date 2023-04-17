@@ -1,9 +1,6 @@
 name: build
 
 on:
-  pull_request:
-    branches: [ "main" ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -15,26 +12,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Tectonic Cache
-        uses: actions/cache@v3
+      - name: Build LaTeX
+        uses: dante-ev/latex-action@2021-A
         with:
-          path: ~/.cache/Tectonic
-          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
-          restore-keys: |
-           ${{ runner.os }}-tectonic-
+          root_file: book.tex
+          working_directory: book/
+          compiler: latexmk
+          args: -xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
 
-      - name: Init Tectonic
-        uses: wtfjoke/setup-tectonic@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          tectonic-version: 0.9.0
-          biber-version: 2.16
-
-      - name: Run Tectonic
-        run: tectonic book/book.tex
-
-      - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v3.1.0
+      - name: Upload a PDF Artifact
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: book
           path: book/book.pdf
